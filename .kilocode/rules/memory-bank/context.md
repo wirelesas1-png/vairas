@@ -1,87 +1,111 @@
-# Active Context: Next.js Starter Template
+# Active Context: Driving Instructor Booking Platform
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Project Status**: 🚧 Core Features Implemented (70% Complete)
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+A SaaS platform for driving instructors to manage bookings with unique public booking pages, calendar management, and subscription system.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] Database schema with 7 tables (instructors, bookings, working hours, etc.)
+- [x] Authentication system (registration, login, JWT sessions)
+- [x] Instructor dashboard with calendar view
+- [x] Public booking pages with unique URLs (/instruktorius/[slug])
+- [x] Booking creation and management
+- [x] Real-time availability checking
+- [x] Mobile-responsive design
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| `src/db/schema.ts` | Database tables | ✅ Complete |
+| `src/lib/auth.ts` | Authentication utilities | ✅ Complete |
+| `src/app/registracija/` | Registration page | ✅ Complete |
+| `src/app/prisijungimas/` | Login page | ✅ Complete |
+| `src/app/dashboard/` | Instructor dashboard | ✅ Complete |
+| `src/app/instruktorius/[slug]/` | Public booking page | ✅ Complete |
+| `src/app/api/auth/` | Auth API routes | ✅ Complete |
+| `src/app/api/bookings/` | Booking API routes | ✅ Complete |
+| `src/middleware.ts` | Route protection | ✅ Complete |
 
 ## Current Focus
 
-The template is ready. Next steps depend on user requirements:
+**Next Steps:**
+1. Add Stripe subscription integration (€5/month with 7-day trial)
+2. Implement email notifications (booking confirmations)
+3. Create admin panel for platform owner
+4. Add settings page for instructors (working hours, profile)
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+## Key Features Implemented
 
-## Quick Start Guide
+### Authentication
+- Registration with automatic slug generation
+- Login with JWT sessions
+- 7-day trial period on signup
+- Role-based access (instructor/admin)
 
-### To add a new page:
+### Instructor Dashboard
+- Calendar view (month/week/day)
+- Booking list with status (pending/confirmed/cancelled)
+- Booking management (cancel, view details)
+- Public URL display and copy
+- Stats overview
 
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
+### Public Booking Page
+- Unique URL per instructor: `/instruktorius/[slug]`
+- Available date selection (next 30 days)
+- Time slot selection based on working hours
+- Conflict detection (no double bookings)
+- Client information form
+- Success confirmation
 
-### To add components:
+### Database Schema
+- **instructors**: User accounts, subscription status, profile
+- **bookings**: Reservations with client info and status
+- **workingHours**: Instructor availability by day
+- **breaks**: Break times during working hours
+- **blockedDates**: Vacation/unavailable periods
+- **lessonSettings**: Lesson duration (60/90 min)
+- **admins**: Platform administrators
 
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
+## Pending Features
 
-### To add a database:
+- [ ] Stripe payment integration
+- [ ] Email notifications (Resend/Sendgrid)
+- [ ] Settings page (working hours, profile, breaks)
+- [ ] Admin panel (view all instructors, manage subscriptions)
+- [ ] Password reset functionality
+- [ ] Booking confirmation by instructor
+- [ ] SMS notifications (optional)
 
-Follow `.kilocode/recipes/add-database.md`
+## Technical Details
 
-### To add API routes:
+### Tech Stack
+- Next.js 16 with App Router
+- TypeScript (strict mode)
+- Tailwind CSS 4
+- Drizzle ORM + SQLite
+- bcryptjs for password hashing
+- jose for JWT tokens
 
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
+### API Routes
+- `POST /api/auth/register` - Create instructor account
+- `POST /api/auth/login` - Login
+- `POST /api/auth/logout` - Logout
+- `POST /api/bookings` - Create booking
+- `PATCH /api/bookings/[id]` - Update booking status
 
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+### Protected Routes
+- `/dashboard/*` - Instructor only
+- `/admin/*` - Admin only
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| 2026-02-17 | Initial database setup with 7 tables |
+| 2026-02-17 | Authentication system with registration and login |
+| 2026-02-17 | Instructor dashboard with calendar view |
+| 2026-02-17 | Public booking page with availability checking |
