@@ -111,3 +111,4 @@ A SaaS platform for driving instructors to manage bookings with unique public bo
 | 2026-02-17 | Instructor dashboard with calendar view |
 | 2026-02-17 | Public booking page with availability checking |
 | 2026-02-18 | Database tables created manually in Supabase (7 tables) |
+| 2026-02-18 | Fixed Vercel build failures by making database connection optional (lazy loading) |
