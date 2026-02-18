@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { bookings, instructors } from "@/db/schema";
 import { eq, and, or, gte, lte } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   try {
+    const db = getDb();
+    if (!db) {
+      return NextResponse.json(
+        { error: "Database not configured. Please set DATABASE_URL." },
+        { status: 500 }
+      );
+    }
+    
     const body = await request.json();
     const {
       instructorId,

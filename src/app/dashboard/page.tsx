@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { instructors, bookings } from "@/db/schema";
 import { eq, gte, lte, and } from "drizzle-orm";
 import DashboardClient from "./DashboardClient";
@@ -10,6 +10,19 @@ export default async function DashboardPage() {
 
   if (!session || session.role !== "instructor") {
     redirect("/prisijungimas");
+  }
+
+  const db = getDb();
+  if (!db) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Klaida</h1>
+          <p className="text-gray-600">Duomenų bazė nėra sukonfigūruota.</p>
+          <p className="text-sm text-gray-500 mt-2">Prašome nustatyti DATABASE_URL aplinkos kintamąjį.</p>
+        </div>
+      </div>
+    );
   }
 
   // Get instructor data

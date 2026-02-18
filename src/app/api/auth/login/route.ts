@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { instructors, admins } from "@/db/schema";
 import { verifyPassword, setSession } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   try {
+    const db = getDb();
+    if (!db) {
+      return NextResponse.json(
+        { error: "Database not configured. Please set DATABASE_URL." },
+        { status: 500 }
+      );
+    }
+    
     const body = await request.json();
     const { email, password, role = "instructor" } = body;
 

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { instructors, workingHours, lessonSettings, bookings, blockedDates } from "@/db/schema";
 import { eq, and, gte, lte } from "drizzle-orm";
 import BookingClient from "./BookingClient";
@@ -10,6 +10,22 @@ export default async function InstructorBookingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  const db = getDb();
+  if (!db) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Sistema laikinai neveikia
+          </h1>
+          <p className="text-gray-600">
+            Duomenų bazė nėra sukonfigūruota. Prašome bandyti vėliau.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // Get instructor by slug
   const [instructor] = await db

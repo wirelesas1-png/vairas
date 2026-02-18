@@ -4,11 +4,23 @@ import * as schema from "./schema";
 
 const connectionString = process.env.DATABASE_URL;
 
-if (!connectionString) {
-  throw new Error("Missing DATABASE_URL environment variable");
+let client: postgres.Sql<{}> | null = null;
+let db: ReturnType<typeof drizzle<typeof schema>> | null = null;
+
+function getDb() {
+  if (!connectionString) {
+    console.warn("WARNING: DATABASE_URL is not set. Database features will not work.");
+    return null;
+  }
+  
+  if (!client) {
+    // Disable prefetch as it is not supported for "Transaction" pool mode
+    client = postgres(connectionString, { prepare: false });
+    db = drizzle(client, { schema });
+  }
+  
+  return db;
 }
 
-// Disable prefetch as it is not supported for "Transaction" pool mode
-const client = postgres(connectionString, { prepare: false });
-
-export const db = drizzle(client, { schema });
+export { getDb };
+export { schema };
