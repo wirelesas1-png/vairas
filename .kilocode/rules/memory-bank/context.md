@@ -8,6 +8,7 @@ A SaaS platform for driving instructors to manage bookings with unique public bo
 
 ## Recently Completed
 
+- [x] Database tables created manually in Supabase (7 tables)
 - [x] Database schema with 7 tables (instructors, bookings, working hours, etc.)
 - [x] Authentication system (registration, login, JWT sessions)
 - [x] Instructor dashboard with calendar view
@@ -86,7 +87,7 @@ A SaaS platform for driving instructors to manage bookings with unique public bo
 - Next.js 16 with App Router
 - TypeScript (strict mode)
 - Tailwind CSS 4
-- Drizzle ORM + SQLite
+- Drizzle ORM + Supabase PostgreSQL
 - bcryptjs for password hashing
 - jose for JWT tokens
 
@@ -109,3 +110,4 @@ A SaaS platform for driving instructors to manage bookings with unique public bo
 | 2026-02-17 | Authentication system with registration and login |
 | 2026-02-17 | Instructor dashboard with calendar view |
 | 2026-02-17 | Public booking page with availability checking |
+| 2026-02-18 | Database tables created manually in Supabase (7 tables) |
