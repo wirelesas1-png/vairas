@@ -16,6 +16,7 @@ A SaaS platform for driving instructors to manage bookings with unique public bo
 - [x] Booking creation and management
 - [x] Real-time availability checking
 - [x] Mobile-responsive design
+- [x] Fixed Next.js 16 middleware deprecation (renamed to proxy)
 
 ## Current Structure
 
