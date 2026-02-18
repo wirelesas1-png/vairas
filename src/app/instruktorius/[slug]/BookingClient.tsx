@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { formatDate, getMonthNames, isSameDay } from "@/lib/date-utils";
 
 interface WorkingHour {
@@ -226,9 +227,11 @@ export default function BookingClient({
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
           <div className="flex items-start gap-6">
             {instructor.profileImage ? (
-              <img
+              <Image
                 src={instructor.profileImage}
                 alt={instructor.name}
+                width={96}
+                height={96}
                 className="w-24 h-24 rounded-full object-cover"
               />
             ) : (
